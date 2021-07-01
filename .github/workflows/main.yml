@@ -20,7 +20,7 @@ jobs:
       - name: Make gradlew executable
         run: chmod +x ./backend/gradlew
       - name: Build with Gradle
-        run: ./backend/gradlew build
+        run: cd backend && ./gradlew build
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
       - name: Cache Gradle packages
