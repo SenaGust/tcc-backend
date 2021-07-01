@@ -18,9 +18,9 @@ jobs:
         with:
           java-version: 11
       - name: Make gradlew executable
-        run: chmod +x ./gradlew
+        run: chmod +x ./backend/gradlew
       - name: Build with Gradle
-        run: ./gradlew build
+        run: ./backend/gradlew build
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
       - name: Cache Gradle packages
@@ -30,12 +30,12 @@ jobs:
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle') }}
           restore-keys: ${{ runner.os }}-gradle
       - name: Build with Gradle
-        run: ./gradlew clean build -x test
+        run: ./backend/gradlew clean build -x test
       - name: Upload build files.
         uses: actions/upload-artifact@v1
         with:
           name: build
-          path: ./build
+          path: ./backend/build
   test:
     name: Test
     needs: build
@@ -51,7 +51,7 @@ jobs:
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
       - name: Test with Gradle
-        run: ./gradlew test
+        run: ./backend/gradlew test
   deploy:
     needs: test
     name: Deploy to Heroku
