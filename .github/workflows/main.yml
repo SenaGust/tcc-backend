@@ -34,6 +34,7 @@ jobs:
           path: ./build
   test:
     name: Test
+    needs: build
     runs-on: ubuntu-latest
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -48,6 +49,7 @@ jobs:
       - name: Test with Gradle
         run: ./gradlew test
   deploy:
+    needs: test
     name: Deploy to Heroku
     runs-on: ubuntu-latest
     steps:
