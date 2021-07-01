@@ -7,8 +7,7 @@ on:
 
 jobs:
   test:
-    name: Test
-    needs: build
+    name: Build and test
     runs-on: ubuntu-latest
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
