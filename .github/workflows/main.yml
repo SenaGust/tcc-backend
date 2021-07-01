@@ -18,9 +18,9 @@ jobs:
         with:
           java-version: 11
       - name: Make gradlew executable
-      run: chmod +x ./gradlew
-        - name: Build with Gradle
-          run: ./gradlew build
+        run: chmod +x ./gradlew
+      - name: Build with Gradle
+        run: ./gradlew build
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
       - name: Cache Gradle packages
@@ -58,7 +58,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: akhileshns/heroku-deploy@v3.12.12 # This is the action
+      - uses: akhileshns/heroku-deploy@v3.12.12
         with:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
           heroku_app_name: ${{secrets.HEROKU_APP_NAME}}
