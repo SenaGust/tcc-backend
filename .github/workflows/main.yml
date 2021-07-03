@@ -21,9 +21,9 @@ jobs:
         run: chmod +x backend/gradlew
       - name: Test with Gradle
         run: cd backend && ./gradlew test
-  deploy:
+  deploy-dev:
     needs: test
-    name: Deploy to Heroku
+    name: Deploy to DEV - Heroku
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -31,5 +31,18 @@ jobs:
         with:
           appdir: "backend"
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
-          heroku_app_name: ${{secrets.HEROKU_APP_NAME}}
+          heroku_app_name: ${{secrets.HEROKU_DEV_APP_NAME}}
           heroku_email:  ${{secrets.HEROKU_EMAIL}}
+  deploy-prod:
+    needs: test
+    name: Deploy to PROD - Heroku
+    if: "contains(github.event.head_commit.message, 'move to prod')"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: akhileshns/heroku-deploy@v3.12.12
+        with:
+          appdir: "backend"
+          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+          heroku_app_name: ${{secrets.HEROKU_PROD_APP_NAME}}
+          heroku_email: ${{secrets.HEROKU_EMAIL}}
