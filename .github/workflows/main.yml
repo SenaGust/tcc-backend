@@ -3,7 +3,7 @@ name: deploy-tcc-brackend
 on:
   push:
     branches:
-      - 'master'
+      - "master"
 
 jobs:
   test:
@@ -18,9 +18,9 @@ jobs:
         with:
           java-version: 11
       - name: Grant execute permission for gradlew
-        run: chmod +x backend/gradlew
+        run: chmod +x gradlew
       - name: Test with Gradle
-        run: cd backend && ./gradlew test
+        run: ./gradlew test
   deploy-dev:
     needs: test
     name: Deploy to DEV - Heroku
@@ -29,10 +29,9 @@ jobs:
       - uses: actions/checkout@v2
       - uses: akhileshns/heroku-deploy@v3.12.12
         with:
-          appdir: "backend"
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
           heroku_app_name: ${{secrets.HEROKU_DEV_APP_NAME}}
-          heroku_email:  ${{secrets.HEROKU_EMAIL}}
+          heroku_email: ${{secrets.HEROKU_EMAIL}}
   deploy-prod:
     needs: test
     name: Deploy to PROD - Heroku
@@ -42,7 +41,6 @@ jobs:
       - uses: actions/checkout@v2
       - uses: akhileshns/heroku-deploy@v3.12.12
         with:
-          appdir: "backend"
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
           heroku_app_name: ${{secrets.HEROKU_PROD_APP_NAME}}
           heroku_email: ${{secrets.HEROKU_EMAIL}}
