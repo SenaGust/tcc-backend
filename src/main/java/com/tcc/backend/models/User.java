@@ -1,4 +1,4 @@
-package com.tcc.backend.entity;
+package com.tcc.backend.models;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

@@ -1,7 +1,7 @@
 package com.tcc.backend.controllers;
-import com.tcc.backend.resources.UserRepository;
-import com.tcc.backend.entity.User;
 
+import com.tcc.backend.resources.UserRepository;
+import com.tcc.backend.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

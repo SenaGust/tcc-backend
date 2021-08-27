@@ -1,5 +1,5 @@
 package com.tcc.backend.resources;
-import com.tcc.backend.entity.User;
+import com.tcc.backend.models.User;
 
 import org.springframework.data.repository.CrudRepository;
 
