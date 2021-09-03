@@ -1,27 +1,32 @@
 package com.tcc.backend.controllers;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.mock.http.server.reactive.MockServerHttpRequest;
+import org.springframework.test.web.servlet.MockMvc;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
 @AutoConfigureMockMvc
 public class UserControllerTests {
-    @Tag("slow")
+    @Autowired
+    private MockMvc mockMvc;
+
+    @Autowired
+    private ObjectMapper objectMapper;
+
     @Test
-    public void testAddMaxInteger() {
-        assertEquals(2147483646, Integer.sum(2147183646, 300000));
+    void case1() throws Exception {
+
+        var test = mockMvc.perform(get("/user/all"));
     }
 
-    @Tag("fast")
-    @Test
-    public void testDivide() {
-        assertThrows(ArithmeticException.class, () -> {
-            Integer.divideUnsigned(42, 0);
-        });
-    }
 }
