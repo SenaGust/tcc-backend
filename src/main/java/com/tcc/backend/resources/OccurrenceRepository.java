@@ -1,0 +1,7 @@
+package com.tcc.backend.controllers;
+
+import com.tcc.backend.models.Occurrence;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface OccurrenceRepository extends JpaRepository<Occurrence, Long> {
+}
