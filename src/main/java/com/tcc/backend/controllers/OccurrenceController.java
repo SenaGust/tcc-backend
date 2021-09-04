@@ -1,16 +1,18 @@
 package com.tcc.backend.controllers;
 
 import com.tcc.backend.controllers.dto.OccurrenceDTO;
-import com.tcc.backend.models.Location;
+import com.tcc.backend.controllers.form.OccurrenceForm;
 import com.tcc.backend.models.Occurrence;
-import com.tcc.backend.models.OccurrenceType;
-import com.tcc.backend.models.User;
+import com.tcc.backend.resources.LocationRepository;
 import com.tcc.backend.resources.OccurrenceRepository;
+import com.tcc.backend.resources.OccurrenceTypeRepository;
+import com.tcc.backend.resources.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponentsBuilder;
+
+import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -18,10 +20,26 @@ import java.util.List;
 public class OccurrenceController {
     @Autowired
     private OccurrenceRepository occurrenceRepository;
+    @Autowired
+    private OccurrenceTypeRepository occurrenceTypeRepository;
+    @Autowired
+    private UserRepository userRepository;
+    @Autowired
+    private LocationRepository locationRepository;
 
     @GetMapping
     public List<OccurrenceDTO> list() {
         List<Occurrence> occurrences = occurrenceRepository.findAll();
         return OccurrenceDTO.converter(occurrences);
+    }
+
+    @PostMapping
+    public ResponseEntity<OccurrenceDTO> create(@RequestBody OccurrenceForm occurrenceForm, UriComponentsBuilder uriBuilder) {
+        Occurrence occurrence = occurrenceForm.converter(locationRepository, occurrenceTypeRepository, userRepository);
+        occurrenceRepository.save(occurrence);
+
+        URI uri = uriBuilder.path("/occurrences/{id}").buildAndExpand(occurrence.getId()).toUri();
+
+        return ResponseEntity.created(uri).body(new OccurrenceDTO(occurrence));
     }
 }

@@ -12,11 +12,22 @@ public class Occurrence {
     @ManyToOne
     private User author;
     private LocalDateTime dateTime;
-    @ManyToOne
+    @OneToOne
     private Location location;
     @ManyToOne
     private OccurrenceType type;
     private String description;
+
+    public Occurrence() {
+    }
+
+    public Occurrence(User author, LocalDateTime dateTime, Location location, OccurrenceType type, String description) {
+        this.author = author;
+        this.dateTime = dateTime;
+        this.location = location;
+        this.type = type;
+        this.description = description;
+    }
 
     public Long getId() {
         return id;

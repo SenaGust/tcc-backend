@@ -14,6 +14,14 @@ public class Location {
     private Long lng;
     private String address;
 
+    public Location() {
+    }
+    public Location(Long lat, Long lng, String address) {
+        this.lat = lat;
+        this.lng = lng;
+        this.address = address;
+    }
+
     public Long getId() {
         return id;
     }
