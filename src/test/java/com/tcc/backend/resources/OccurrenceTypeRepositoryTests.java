@@ -12,7 +12,7 @@ import org.springframework.test.context.ActiveProfiles;
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @ActiveProfiles("test")
-public class OccurrenceTypeRepositoryTest {
+public class OccurrenceTypeRepositoryTests {
     @Autowired
     private TestEntityManager em;
     @Autowired

@@ -1,7 +1,6 @@
 package com.tcc.backend.resources;
 
 import com.tcc.backend.models.User;
-import org.assertj.core.api.Assert;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +12,7 @@ import org.springframework.test.context.ActiveProfiles;
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @ActiveProfiles("test")
-public class UserRepositoryTest {
+public class UserRepositoryTests {
     @Autowired
     private UserRepository userRepository;
     @Autowired
