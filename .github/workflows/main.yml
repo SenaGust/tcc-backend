@@ -21,7 +21,7 @@ jobs:
         run: chmod +x gradlew
       - name: Test with Gradle
         run: ./gradlew test
-      - name: Test with Gradle
+      - name: Coverage test
         run: ./gradlew jacocoTestCoverageVerification
   deploy-dev:
     needs: test
