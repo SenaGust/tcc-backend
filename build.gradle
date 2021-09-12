@@ -1,8 +1,8 @@
 plugins {
-	id 'org.springframework.boot' version '2.5.2'
-	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
-	id 'java'
-	id 'jacoco'
+    id 'org.springframework.boot' version '2.5.2'
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+    id 'java'
+    id 'jacoco'
 }
 
 group = 'com.tcc'
@@ -10,55 +10,57 @@ version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '11'
 
 configurations {
-	compileOnly {
-		extendsFrom annotationProcessor
-	}
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
 }
 
 repositories {
-	mavenCentral()
+    mavenCentral()
 }
 
 dependencies {
-	implementation 'org.springframework.boot:spring-boot-starter-web'
-	compileOnly 'org.projectlombok:lombok'
-	developmentOnly 'org.springframework.boot:spring-boot-devtools'
-	annotationProcessor 'org.projectlombok:lombok'
-	runtimeOnly 'mysql:mysql-connector-java:8.0.26'
-	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-	testImplementation 'org.junit.jupiter:junit-jupiter-api:5.3.1'
-	testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.3.1'
-	testImplementation 'com.h2database:h2'
+    implementation 'io.springfox:springfox-swagger2:2.9.2'
+    implementation 'io.springfox:springfox-swagger-ui:2.9.2'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    compileOnly 'org.projectlombok:lombok'
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+    annotationProcessor 'org.projectlombok:lombok'
+    runtimeOnly 'mysql:mysql-connector-java:8.0.26'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.3.1'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.3.1'
+    testImplementation 'com.h2database:h2'
 }
 
 jacoco {
-	toolVersion = "0.8.7"
+    toolVersion = "0.8.7"
 }
 
 jacocoTestReport {
-	dependsOn test
+    dependsOn test
 }
 
 jacocoTestReport {
-	reports {
-		xml.required = false
-		csv.required = false
-		html.outputLocation = layout.buildDirectory.dir('jacocoHtml')
-	}
+    reports {
+        xml.required = false
+        csv.required = false
+        html.outputLocation = layout.buildDirectory.dir('jacocoHtml')
+    }
 }
 
 test {
-	useJUnitPlatform()
-	finalizedBy jacocoTestReport
+    useJUnitPlatform()
+    finalizedBy jacocoTestReport
 }
 
 jacocoTestCoverageVerification {
-	violationRules {
-		rule {
-			limit {
-				minimum = 0.1
-			}
-		}
-	}
+    violationRules {
+        rule {
+            limit {
+                minimum = 0.1
+            }
+        }
+    }
 }
