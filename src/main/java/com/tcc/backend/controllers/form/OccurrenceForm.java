@@ -13,8 +13,8 @@ import java.time.LocalDateTime;
 public class OccurrenceForm {
     private String authorName;
     private LocalDateTime dateTime;
-    private Long lat;
-    private Long lng;
+    private Double lat;
+    private Double lng;
     private String address;
     private String type;
     private String description;
@@ -35,19 +35,19 @@ public class OccurrenceForm {
         this.dateTime = dateTime;
     }
 
-    public Long getLat() {
+    public Double getLat() {
         return lat;
     }
 
-    public void setLat(Long lat) {
+    public void setLat(Double lat) {
         this.lat = lat;
     }
 
-    public Long getLng() {
+    public Double getLng() {
         return lng;
     }
 
-    public void setLng(Long lng) {
+    public void setLng(Double lng) {
         this.lng = lng;
     }
 

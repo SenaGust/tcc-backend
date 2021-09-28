@@ -10,13 +10,13 @@ public class Location {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
-    private Long lat;
-    private Long lng;
+    private Double lat;
+    private Double lng;
     private String address;
 
     public Location() {
     }
-    public Location(Long lat, Long lng, String address) {
+    public Location(Double lat, Double lng, String address) {
         this.lat = lat;
         this.lng = lng;
         this.address = address;
@@ -37,19 +37,19 @@ public class Location {
         this.address = address;
     }
 
-    public Long getLat() {
+    public Double getLat() {
         return lat;
     }
 
-    public void setLat(Long lat) {
+    public void setLat(Double lat) {
         this.lat = lat;
     }
 
-    public Long getLng() {
+    public Double getLng() {
         return lng;
     }
 
-    public void setLng(Long lng) {
+    public void setLng(Double lng) {
         this.lng = lng;
     }
 }

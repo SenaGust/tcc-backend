@@ -9,8 +9,8 @@ import java.util.stream.Collectors;
 public class OccurrenceDTO {
     private final Long id;
     private final LocalDateTime dateTime;
-    private final Long lat;
-    private final Long lng;
+    private final Double lat;
+    private final Double lng;
     private final String address;
     private final String description;
 
@@ -35,11 +35,11 @@ public class OccurrenceDTO {
         return dateTime;
     }
 
-    public Long getLat() {
+    public Double getLat() {
         return lat;
     }
 
-    public Long getLng() {
+    public Double getLng() {
         return lng;
     }
 
