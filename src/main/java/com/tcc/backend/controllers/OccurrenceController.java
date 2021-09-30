@@ -14,6 +14,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/occurrences")
@@ -41,5 +42,15 @@ public class OccurrenceController {
         URI uri = uriBuilder.path("/occurrences/{id}").buildAndExpand(occurrence.getId()).toUri();
 
         return ResponseEntity.created(uri).body(new OccurrenceDTO(occurrence));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity delete(@PathVariable Long id) {
+        Optional<Occurrence> optional = occurrenceRepository.findById(id);
+        if (optional.isPresent()) {
+            occurrenceRepository.deleteById(id);
+            return ResponseEntity.ok().build();
+        }
+        return ResponseEntity.notFound().build();
     }
 }
