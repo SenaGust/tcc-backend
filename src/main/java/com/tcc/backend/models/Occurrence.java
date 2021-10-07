@@ -1,13 +1,20 @@
 package com.tcc.backend.models;
 
+import com.tcc.backend.domains.OriginType;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import com.tcc.backend.models.User;
 
 @Entity
+@NoArgsConstructor
+@Setter
+@Getter
 public class Occurrence {
     @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @ManyToOne
     private User author;
@@ -17,57 +24,15 @@ public class Occurrence {
     @ManyToOne
     private OccurrenceType type;
     private String description;
+    @Enumerated(EnumType.STRING)
+    private OriginType originType;
 
-    public Occurrence() {
-    }
-
-    public Occurrence(User author, LocalDateTime dateTime, Location location, OccurrenceType type, String description) {
+    public Occurrence(User author, LocalDateTime dateTime, Location location, OccurrenceType type, String description,OriginType originType) {
         this.author = author;
         this.dateTime = dateTime;
         this.location = location;
         this.type = type;
         this.description = description;
-    }
-
-    public Long getId() {
-        return id;
-    }
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public LocalDateTime getDateTime() {
-        return dateTime;
-    }
-    public void setDateTime(LocalDateTime dateTime) {
-        this.dateTime = dateTime;
-    }
-
-    public Location getLocation() {
-        return location;
-    }
-    public void setLocation(Location location) {
-        this.location = location;
-    }
-
-    public OccurrenceType getType() {
-        return type;
-    }
-    public void setType(OccurrenceType type) {
-        this.type = type;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public User getAuthor() {
-        return author;
-    }
-    public void setAuthor(User author) {
-        this.author = author;
+        this.originType = originType;
     }
 }

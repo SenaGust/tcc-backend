@@ -44,6 +44,28 @@ public class OccurrenceController {
         return ResponseEntity.created(uri).body(new OccurrenceDTO(occurrence));
     }
 
+   /* @PutMapping("/{id}")
+    public ResponseEntity update(@PathVariable Long id, OccurrenceForm occurrenceForm) {
+        Occurrence newOccurrence = occurrenceForm.converter(locationRepository, occurrenceTypeRepository, userRepository);
+        Optional<Occurrence> optional = occurrenceRepository.findById(id);
+
+        if (optional.isPresent()) {
+            Occurrence oldOccurrence = optional.get();
+
+            oldOccurrence.setDateTime(newOccurrence.getDateTime());
+            oldOccurrence.setDescription(newOccurrence.getDescription());
+            oldOccurrence.setLocation(newOccurrence.getLocation());
+            oldOccurrence.setType(newOccurrence.getAuthor());
+            oldOccurrence.setAuthor(newOccurrence.getAuthor());
+            oldOccurrence.setAuthor(newOccurrence.getAuthor());
+
+
+            return ResponseEntity.ok().build();
+        }
+        return ResponseEntity.notFound().build();
+
+    } */
+
     @DeleteMapping("/{id}")
     public ResponseEntity delete(@PathVariable Long id) {
         Optional<Occurrence> optional = occurrenceRepository.findById(id);
