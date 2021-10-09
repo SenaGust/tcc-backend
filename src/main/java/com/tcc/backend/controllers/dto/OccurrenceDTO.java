@@ -1,5 +1,6 @@
 package com.tcc.backend.controllers.dto;
 
+import com.tcc.backend.domains.OriginType;
 import com.tcc.backend.models.Occurrence;
 import lombok.Getter;
 
@@ -16,7 +17,7 @@ public class OccurrenceDTO {
     private final String address;
     private final String description;
     private final String type;
-    private final String origin;
+    private final OriginType origin;
 
     public OccurrenceDTO(Occurrence occurrence) {
         this.dateTime = occurrence.getDateTime();
@@ -26,7 +27,7 @@ public class OccurrenceDTO {
         this.address = occurrence.getLocation().getAddress();
         this.id = occurrence.getId();
         this.type = occurrence.getType().getName();
-        this.origin = occurrence.getOriginType().name();
+        this.origin = occurrence.getOriginType();
     }
 
     public static List<OccurrenceDTO> converter(List<Occurrence> occurrences) {
