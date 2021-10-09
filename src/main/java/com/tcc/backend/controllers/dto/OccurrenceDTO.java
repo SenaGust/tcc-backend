@@ -17,7 +17,7 @@ public class OccurrenceDTO {
     private final String address;
     private final String description;
     private final String type;
-    private final OriginType origin;
+    private final String origin;
 
     public OccurrenceDTO(Occurrence occurrence) {
         this.dateTime = occurrence.getDateTime();
@@ -27,7 +27,7 @@ public class OccurrenceDTO {
         this.address = occurrence.getLocation().getAddress();
         this.id = occurrence.getId();
         this.type = occurrence.getType().getName();
-        this.origin = occurrence.getOriginType();
+        this.origin = occurrence.getOriginType().name();
     }
 
     public static List<OccurrenceDTO> converter(List<Occurrence> occurrences) {
