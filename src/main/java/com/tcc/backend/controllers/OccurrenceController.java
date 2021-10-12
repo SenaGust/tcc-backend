@@ -9,6 +9,7 @@ import com.tcc.backend.resources.OccurrenceTypeRepository;
 import com.tcc.backend.resources.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -35,6 +36,7 @@ public class OccurrenceController {
     }
 
     @PostMapping
+    @Transactional
     public ResponseEntity<OccurrenceDTO> create(@RequestBody OccurrenceForm occurrenceForm, UriComponentsBuilder uriBuilder) {
         Occurrence occurrence = occurrenceForm.converter(locationRepository, occurrenceTypeRepository, userRepository);
         occurrenceRepository.save(occurrence);
@@ -44,29 +46,30 @@ public class OccurrenceController {
         return ResponseEntity.created(uri).body(new OccurrenceDTO(occurrence));
     }
 
-   /* @PutMapping("/{id}")
-    public ResponseEntity update(@PathVariable Long id, OccurrenceForm occurrenceForm) {
+    @PutMapping("/{id}")
+    @Transactional
+    public ResponseEntity update(@PathVariable Long id, @RequestBody OccurrenceForm occurrenceForm) {
         Occurrence newOccurrence = occurrenceForm.converter(locationRepository, occurrenceTypeRepository, userRepository);
         Optional<Occurrence> optional = occurrenceRepository.findById(id);
 
         if (optional.isPresent()) {
             Occurrence oldOccurrence = optional.get();
 
+            oldOccurrence.setAuthor(newOccurrence.getAuthor());
             oldOccurrence.setDateTime(newOccurrence.getDateTime());
-            oldOccurrence.setDescription(newOccurrence.getDescription());
             oldOccurrence.setLocation(newOccurrence.getLocation());
-            oldOccurrence.setType(newOccurrence.getAuthor());
-            oldOccurrence.setAuthor(newOccurrence.getAuthor());
-            oldOccurrence.setAuthor(newOccurrence.getAuthor());
-
+            oldOccurrence.setType(newOccurrence.getType());
+            oldOccurrence.setOriginType(newOccurrence.getOriginType());
+            oldOccurrence.setDescription(newOccurrence.getDescription());
+            oldOccurrence.setOriginType(newOccurrence.getOriginType());
 
             return ResponseEntity.ok().build();
         }
         return ResponseEntity.notFound().build();
-
-    } */
+    }
 
     @DeleteMapping("/{id}")
+    @Transactional
     public ResponseEntity delete(@PathVariable Long id) {
         Optional<Occurrence> optional = occurrenceRepository.findById(id);
         if (optional.isPresent()) {
