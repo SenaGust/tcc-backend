@@ -10,10 +10,11 @@ import lombok.Setter;
 @NoArgsConstructor
 public class UserForm {
     private String name;
+    private String lastname;
     private String email;
     private String password;
 
     public User converter() {
-        return new User(this.name, this.email, this.password);
+        return new User(this.name, this.email, this.password, this.lastname);
     }
 }

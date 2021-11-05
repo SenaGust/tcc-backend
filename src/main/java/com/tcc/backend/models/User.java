@@ -20,15 +20,17 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String name;
+    private String lastname;
     private String email;
     private String password;
     @ManyToMany(fetch = FetchType.EAGER)
     private List<UserScope> usersScopes = new ArrayList<>();
 
-    public User(String name, String email, String password) {
+    public User(String name, String email, String password, String lastname) {
         this.name = name;
         this.email = email;
         this.password = password;
+        this.lastname = lastname;
     }
 
     @Override
