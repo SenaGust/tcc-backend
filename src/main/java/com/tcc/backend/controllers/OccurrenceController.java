@@ -9,6 +9,7 @@ import com.tcc.backend.resources.OccurrenceTypeRepository;
 import com.tcc.backend.resources.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -16,6 +17,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 import java.net.URI;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/occurrences")
@@ -32,6 +34,17 @@ public class OccurrenceController {
     @GetMapping
     public List<OccurrenceDTO> list() {
         List<Occurrence> occurrences = occurrenceRepository.findAll();
+        return OccurrenceDTO.converter(occurrences);
+    }
+
+    @GetMapping("/by-user")
+    public List<OccurrenceDTO> listByUser() {
+        List<Occurrence> occurrences = occurrenceRepository.findAll();
+
+        String name = SecurityContextHolder.getContext().getAuthentication().getName();
+
+        occurrences = occurrences.stream().filter(occurrence -> occurrence.getAuthor().getEmail().equals(name)).collect(Collectors.toList());
+
         return OccurrenceDTO.converter(occurrences);
     }
 

@@ -10,13 +10,13 @@ import com.tcc.backend.resources.OccurrenceTypeRepository;
 import com.tcc.backend.resources.UserRepository;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 import java.time.LocalDateTime;
 
 @Getter
 @Setter
 public class OccurrenceForm {
-    private String authorName;
     private LocalDateTime dateTime;
     private Double lat;
     private Double lng;
@@ -31,7 +31,8 @@ public class OccurrenceForm {
 
         OccurrenceType occurrenceType = occurrenceTypeRepository.findByName(type);
 
-        User user = userRepository.findByName(authorName);
+        String email = SecurityContextHolder.getContext().getAuthentication().getName();
+        User user = userRepository.findByEmail(email);
 
         return new Occurrence(user, dateTime, location, occurrenceType, description, origin);
     }
