@@ -27,7 +27,15 @@ public class TokenService {
         User user = userRepository.findByEmail(authentication.getName());
         Date today = new Date();
         Date expirationDate = new Date(today.getTime() + Long.parseLong(expirationTime));
-        return Jwts.builder().setIssuer(applicationName).setSubject(user.getId().toString()).setIssuedAt(today).setExpiration(expirationDate).signWith(SignatureAlgorithm.HS512, secret).compact();
+        return Jwts.builder()
+                .setIssuer(applicationName)
+                .setSubject(user.getId().toString())
+                .setIssuedAt(today)
+                .setExpiration(expirationDate)
+                .claim("name", user.getName())
+                .claim("lastname", user.getLastname())
+                .signWith(SignatureAlgorithm.HS512, secret)
+                .compact();
     }
 
     public boolean isValid(String token) {
