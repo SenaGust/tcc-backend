@@ -24,11 +24,10 @@ public class UserController {
     @PostMapping
     @Transactional
     public ResponseEntity<UserDTO> create(@RequestBody UserForm userForm, UriComponentsBuilder uriBuilder) {
-        userRepository.deleteAll();
         User user = userForm.converter();
         Optional<User> foundUser = Optional.ofNullable(userRepository.findByEmail(user.getEmail()));
 
-        if(!foundUser.isPresent()) {
+        if (!foundUser.isPresent()) {
             user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
             userRepository.save(user);
 
