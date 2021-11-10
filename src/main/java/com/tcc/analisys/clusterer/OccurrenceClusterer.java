@@ -19,7 +19,7 @@ public class OccurrenceClusterer {
         // IterativeMultiKMeans iterativeKMeans = new IterativeMultiKMeans(3, generateKMax(occurrenceInstances.size()), 100, 100, new ManhattanDistance(), new BICScore());
         // Dataset[] clusters = iterativeKMeans.cluster(dataset);
 
-        DensityBasedSpatialClustering DBSCAN = new DensityBasedSpatialClustering( 0.15, 3, new ManhattanDistance());
+        DensityBasedSpatialClustering DBSCAN = new DensityBasedSpatialClustering( 0.0015, 3, new ManhattanDistance());
         Dataset[] clusters = DBSCAN.cluster(dataset);
 
         return Arrays.stream(clusters).map(cluster -> new OccurrenceClusteredDTO(cluster)).collect(Collectors.toList());
