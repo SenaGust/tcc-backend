@@ -6,7 +6,7 @@ import net.sf.javaml.clustering.IterativeMultiKMeans;
 import net.sf.javaml.clustering.evaluation.SumOfSquaredErrors;
 import net.sf.javaml.core.Dataset;
 import net.sf.javaml.core.DefaultDataset;
-import net.sf.javaml.distance.ManhattanDistance;
+import net.sf.javaml.distance.EuclideanDistance;
 
 import java.util.Arrays;
 import java.util.List;
@@ -17,7 +17,7 @@ public class OccurrenceClusterer {
         Dataset dataset = new DefaultDataset();
         occurrenceInstances.stream().forEach(occurrenceInstance -> dataset.add(occurrenceInstance.toSparseInstance()));
 
-        IterativeMultiKMeans iterativeKMeans = new IterativeMultiKMeans(3, generateKMax(occurrenceInstances.size()), 100, 100, new ManhattanDistance(), new SumOfSquaredErrors());
+        IterativeMultiKMeans iterativeKMeans = new IterativeMultiKMeans(3, generateKMax(occurrenceInstances.size()), 100, 100, new EuclideanDistance(), new SumOfSquaredErrors());
         Dataset[] clusters = iterativeKMeans.cluster(dataset);
 
         return Arrays.stream(clusters).map(cluster -> new OccurrenceClusteredDTO(cluster)).collect(Collectors.toList());
