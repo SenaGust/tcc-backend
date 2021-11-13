@@ -28,7 +28,7 @@ public class OccurrenceClusteredDTO {
         this.centroid = convertToOccurrence(occurrenceCluster.instance(0));
 
         List<SparseInstance> occurrenceInstanceList = new ArrayList<>();
-        for (int instanceIndex = 1; instanceIndex < occurrenceCluster.size(); instanceIndex++) {
+        for (int instanceIndex = 0; instanceIndex < occurrenceCluster.size(); instanceIndex++) {
             occurrenceInstanceList.add(((SparseInstance) occurrenceCluster.instance(instanceIndex)));
         }
         this.otherOccurrences = occurrenceInstanceList.stream().map(occurrenceInstance -> convertToOccurrence(occurrenceInstance)).collect(Collectors.toList());
@@ -36,21 +36,19 @@ public class OccurrenceClusteredDTO {
         this.radius = getRadius(occurrenceInstanceList, (SparseInstance) occurrenceCluster.instance(0));
 
         List<Location> locations = new ArrayList<>();
-        locations.add(this.centroid.getLocation());
         this.otherOccurrences.stream().forEach(occurrence -> locations.add(occurrence.getLocation()));
+
         this.virtualCentroid = GetCentrePointFromListOfLocations(locations);
     }
 
-    private Location GetCentrePointFromListOfLocations(List<Location> coordList)
-    {
+    private Location GetCentrePointFromListOfLocations(List<Location> coordList) {
         int total = coordList.size();
 
         double X = 0;
         double Y = 0;
         double Z = 0;
 
-        for(Location location : coordList)
-        {
+        for (Location location : coordList) {
             double lat = location.getLat() * Math.PI / 180;
             double lon = location.getLng() * Math.PI / 180;
 
@@ -83,8 +81,8 @@ public class OccurrenceClusteredDTO {
     }
 
     private double getRadius(List<SparseInstance> occurrences, SparseInstance cluster) {
-        if (occurrences.isEmpty()) {
-            return 0.5; //Default radius
+        if (occurrences.size() < 2) {
+            return 0; //Default radius
         }
 
         AtomicReference<Double> furtherDistance = new AtomicReference<Double>((double) Double.MIN_NORMAL);
