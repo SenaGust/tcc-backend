@@ -2,7 +2,7 @@ package com.tcc.analisys.clusterer;
 
 import com.tcc.analisys.clusterer.models.OccurrenceClusteredDTO;
 import com.tcc.analisys.clusterer.models.OccurrenceInstance;
-import net.sf.javaml.clustering.IterativeMultiKMeans;
+import net.sf.javaml.clustering.IterativeKMeans;
 import net.sf.javaml.clustering.evaluation.SumOfSquaredErrors;
 import net.sf.javaml.core.Dataset;
 import net.sf.javaml.core.DefaultDataset;
@@ -17,7 +17,7 @@ public class OccurrenceClusterer {
         Dataset dataset = new DefaultDataset();
         occurrenceInstances.stream().forEach(occurrenceInstance -> dataset.add(occurrenceInstance.toSparseInstance()));
 
-        IterativeMultiKMeans iterativeKMeans = new IterativeMultiKMeans(3, generateKMax(occurrenceInstances.size()), 100, 100, new EuclideanDistance(), new SumOfSquaredErrors());
+        IterativeKMeans iterativeKMeans = new IterativeKMeans(3, generateKMax(occurrenceInstances.size()), 100, new EuclideanDistance(), new SumOfSquaredErrors());
         Dataset[] clusters = iterativeKMeans.cluster(dataset);
 
         return Arrays.stream(clusters).map(cluster -> new OccurrenceClusteredDTO(cluster)).collect(Collectors.toList());
