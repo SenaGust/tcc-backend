@@ -6,12 +6,10 @@ import lombok.Getter;
 import net.sf.javaml.core.Dataset;
 import net.sf.javaml.core.Instance;
 import net.sf.javaml.core.SparseInstance;
-import net.sf.javaml.distance.EuclideanDistance;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
-import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Collectors;
 
 @Getter
@@ -33,7 +31,7 @@ public class OccurrenceClusteredDTO {
         }
         this.otherOccurrences = occurrenceInstanceList.stream().map(occurrenceInstance -> convertToOccurrence(occurrenceInstance)).collect(Collectors.toList());
 
-        this.radius = getRadius(occurrenceInstanceList, (SparseInstance) occurrenceCluster.instance(0));
+        this.radius = 0;
 
         List<Location> locations = new ArrayList<>();
         this.otherOccurrences.stream().forEach(occurrence -> locations.add(occurrence.getLocation()));
@@ -78,33 +76,5 @@ public class OccurrenceClusteredDTO {
 
     private Occurrence convertToOccurrence(Instance occurrenceInstanceList) {
         return ((OccurrenceInstance) occurrenceInstanceList.classValue()).getOccurrence();
-    }
-
-    private double getRadius(List<SparseInstance> occurrences, SparseInstance cluster) {
-        if (occurrences.size() < 2) {
-            return 0; //Default radius
-        }
-
-        AtomicReference<Double> furtherDistance = new AtomicReference<Double>((double) Double.MIN_NORMAL);
-        AtomicReference<SparseInstance> finalFurtherOccurrence = new AtomicReference<>();
-
-        EuclideanDistance euclideanDistance = new EuclideanDistance();
-        occurrences.forEach((occurrence) -> {
-            double currentDistance = Math.abs(euclideanDistance.calculateDistance(cluster, occurrence));
-            if (currentDistance >= furtherDistance.get()) {
-                furtherDistance.set(currentDistance);
-                finalFurtherOccurrence.set(occurrence);
-            }
-        });
-
-        double centroidOccurrenceLat = ((OccurrenceInstance) cluster.classValue()).getLat();
-        double centroidOccurrenceLng = ((OccurrenceInstance) cluster.classValue()).getLng();
-        double furtherOccurrenceLat = ((OccurrenceInstance) finalFurtherOccurrence.get().classValue()).getLat();
-        double furtherOccurrenceLng = ((OccurrenceInstance) finalFurtherOccurrence.get().classValue()).getLng();
-
-        if (Math.max(furtherOccurrenceLat, centroidOccurrenceLat) > Math.max(furtherOccurrenceLng, centroidOccurrenceLng)) {
-            return Math.abs(furtherOccurrenceLat - centroidOccurrenceLat);
-        }
-        return Math.abs(furtherOccurrenceLng - centroidOccurrenceLng);
     }
 }
