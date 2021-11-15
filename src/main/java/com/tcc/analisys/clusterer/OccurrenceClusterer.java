@@ -25,6 +25,6 @@ public class OccurrenceClusterer {
 
 
     private int generateKMax(int totalItems) {
-        return Math.max(totalItems / 3, 3);
+        return Math.max(totalItems / 3, 6);
     }
 }
