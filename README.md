@@ -48,10 +48,13 @@ Essa seção contém alguns do frameworks utilizados para o desenvolvimento dess
  
  
 <!-- CONTACT -->
-## Contact
+## Contatos
 
-Your Name - [@your_twitter](https://twitter.com/your_username) - email@example.com
+Gustavo Ribeiro de Freitas Sena - gustavosena98@live.com
 
-Project Link: [https://github.com/your_username/repo_name](https://github.com/your_username/repo_name)
+Lorena Alves Aguilar - email@example.com
 
-<p align="right">(<a href="#top">back to top</a>)</p>
+
+
+
+Link do projeto: [https://github.com/SenaGust/tcc-backend](https://github.com/SenaGust/tcc-backend)
